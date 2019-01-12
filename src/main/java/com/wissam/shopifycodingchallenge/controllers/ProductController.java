@@ -6,7 +6,6 @@ import com.wissam.shopifycodingchallenge.persistence.repositories.ProductReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 
@@ -31,13 +30,13 @@ public class ProductController {
     }
 
     @GetMapping({"/{title}"})
-    public Product findByTitle(@PathParam("title") String title) {
+    public Product findByTitle(@PathVariable("title") String title) {
         return productRepository.findProductByTitle(title);
     }
 
     @GetMapping("/test")
-    public String saveSth(){
-        productRepository.save(new Product("urmom", 10000L, 10L));
+    public String addOne(){
+        productRepository.save(new Product("item", 10000L, 10L));
         return "success";
     }
 }
