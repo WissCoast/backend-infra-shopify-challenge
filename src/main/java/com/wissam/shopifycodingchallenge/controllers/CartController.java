@@ -26,10 +26,11 @@ public class CartController {
         return cartService.createCart();
     }
 
-    @PostMapping("/{cartId}")
-    public ResponseEntity<Object> addProduct(@PathVariable("cartId") String cartId) {
+    @PostMapping("/{cartId}/product/{productId}")
+    public ResponseEntity<Object> addProduct(@PathVariable("cartId") String cartId,
+                                             @PathVariable("productId") String productId) {
         try {
-            cartService.addProduct(cartId);
+            cartService.addProduct(cartId, productId);
         } catch (ProductApiException e) {
             return new ResponseEntity<>(e.generateErrorMessage(), e.getHttpStatus());
         }

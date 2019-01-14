@@ -14,7 +14,7 @@ public class Cart {
     @Id
     private String id;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn
     private List<CartProduct> products;
 

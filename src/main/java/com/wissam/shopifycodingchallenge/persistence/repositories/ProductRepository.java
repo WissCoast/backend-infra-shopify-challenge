@@ -11,7 +11,9 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface ProductRepository extends CrudRepository<Product, String> {
 
-    Product findProductByTitle(@Param("title") String title);
+    Product findProductById(String id);
+
+    Product findProductByTitle(String title);
 
     List<Product> findProductByPrice(int price);
 
