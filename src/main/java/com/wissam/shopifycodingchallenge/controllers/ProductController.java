@@ -1,7 +1,7 @@
 package com.wissam.shopifycodingchallenge.controllers;
 
 import com.google.common.collect.Lists;
-import com.wissam.shopifycodingchallenge.persistence.entities.Product;
+import com.wissam.shopifycodingchallenge.domain.Product;
 import com.wissam.shopifycodingchallenge.persistence.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +13,11 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @GetMapping("/")
-    public String get() {
-        return "nice";
+    @Autowired
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @GetMapping("/all")

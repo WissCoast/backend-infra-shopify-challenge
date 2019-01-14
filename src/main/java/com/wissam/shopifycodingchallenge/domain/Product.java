@@ -1,7 +1,8 @@
-package com.wissam.shopifycodingchallenge.persistence.entities;
+package com.wissam.shopifycodingchallenge.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
@@ -18,6 +19,9 @@ public class Product {
     }
 
     @Id
+    @GeneratedValue
+    private String id;
+
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
@@ -26,6 +30,10 @@ public class Product {
 
     @Column(name = "inventory_count", nullable = false)
     private Long inventoryCount;
+
+    public String getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;

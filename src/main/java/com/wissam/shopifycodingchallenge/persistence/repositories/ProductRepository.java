@@ -1,7 +1,7 @@
 package com.wissam.shopifycodingchallenge.persistence.repositories;
 
 
-import com.wissam.shopifycodingchallenge.persistence.entities.Product;
+import com.wissam.shopifycodingchallenge.domain.Product;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
