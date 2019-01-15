@@ -1,5 +1,8 @@
-package com.wissam.shopifycodingchallenge.services;
+package com.wissam.shopifycodingchallenge.domain.services;
 
+import com.wissam.shopifycodingchallenge.controllers.assemblers.ProductAssembler;
+import com.wissam.shopifycodingchallenge.controllers.dto.CartDto;
+import com.wissam.shopifycodingchallenge.controllers.dto.CartProductDto;
 import com.wissam.shopifycodingchallenge.domain.Cart;
 import com.wissam.shopifycodingchallenge.domain.CartFactory;
 import com.wissam.shopifycodingchallenge.domain.CartProduct;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,22 +28,42 @@ public class CartService {
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
     private final CartProductRepository cartProductRepository;
+    private final ProductAssembler productAssembler;
 
     @Autowired
     public CartService(CartRepository cartRepository,
                        CartFactory cartFactory,
                        ProductRepository productRepository,
-                       CartProductRepository cartProductRepository) {
+                       CartProductRepository cartProductRepository,
+                       ProductAssembler productAssembler) {
         this.cartFactory = cartFactory;
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
         this.cartProductRepository = cartProductRepository;
+        this.productAssembler = productAssembler;
     }
 
     public String createCart() {
         Cart cart = cartFactory.createCart();
         cartRepository.save(cart);
         return cart.getId();
+    }
+
+    public CartDto getCartDto(String cartId) {
+        Cart cart = cartRepository.findCartById(cartId);
+        List<CartProduct> cartProducts = cart.getProducts();
+
+        List<CartProductDto> products = new ArrayList<>();
+
+        for (CartProduct cartProduct : cartProducts) {
+            Product product = productRepository.findProductById(cartProduct.getProductId());
+            products.add(productAssembler.toDto(product, cartProduct.getQuantity()));
+        }
+
+        CartDto cartDto = new CartDto();
+        cartDto.products = products;
+        cartDto.totalCartValue = cart.getTotalCartValue();
+        return cartDto;
     }
 
     public void addProduct(String cartId, String productId, Long quantity) {
@@ -53,6 +77,7 @@ public class CartService {
         }
 
         cart.addProduct(new CartProduct(productId, cartId, quantity));
+        cart.updateCartValue(product.getPrice() * quantity);
         cartRepository.save(cart);
     }
 
@@ -69,7 +94,10 @@ public class CartService {
             }
             foundProduct.setInventoryCount(updatedInventory);
             productRepository.save(foundProduct);
+
+            //empty cart and delete cart
             cartProductRepository.deleteCartProductsByCartId(cartId);
+            cartRepository.deleteById(cartId);
         }
     }
 

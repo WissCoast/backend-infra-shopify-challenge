@@ -1,5 +1,6 @@
 package com.wissam.shopifycodingchallenge.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;

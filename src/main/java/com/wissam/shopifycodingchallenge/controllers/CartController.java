@@ -1,17 +1,13 @@
 package com.wissam.shopifycodingchallenge.controllers;
 
-import com.wissam.shopifycodingchallenge.domain.CartProduct;
-import com.wissam.shopifycodingchallenge.domain.Product;
 import com.wissam.shopifycodingchallenge.domain.exceptions.ProductApiException;
-import com.wissam.shopifycodingchallenge.domain.exceptions.ProductOutOfStockException;
 import com.wissam.shopifycodingchallenge.persistence.repositories.CartProductRepository;
 import com.wissam.shopifycodingchallenge.persistence.repositories.ProductRepository;
-import com.wissam.shopifycodingchallenge.services.CartService;
+import com.wissam.shopifycodingchallenge.domain.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController
@@ -19,21 +15,20 @@ import java.util.List;
 public class CartController {
 
     private final CartService cartService;
-    private final CartProductRepository cartProductRepository;
-    private final ProductRepository productRepository;
 
     @Autowired
-    public CartController(CartService cartService,
-                          CartProductRepository cartProductRepository,
-                          ProductRepository productRepository) {
+    public CartController(CartService cartService) {
         this.cartService = cartService;
-        this.cartProductRepository = cartProductRepository;
-        this.productRepository = productRepository;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public String createCart() {
         return cartService.createCart();
+    }
+
+    @GetMapping("/{cartId}")
+    public ResponseEntity<Object> getCartInfo(@PathVariable("cartId") String cartId) {
+        return new ResponseEntity<>(cartService.getCartDto(cartId), HttpStatus.FOUND);
     }
 
     @PostMapping("/{cartId}/product/{productId}")
@@ -56,16 +51,5 @@ public class CartController {
             return new ResponseEntity<>(e.generateErrorMessage(), e.getHttpStatus());
         }
         return ResponseEntity.accepted().build();
-    }
-
-    @DeleteMapping("/{cartId}")
-    public void deleteCart(@PathVariable("cartId") String cartId) {
-
-    }
-
-    @DeleteMapping("/{cartId}/product/{productId}")
-    public void deleteCartItem(@PathVariable("cartId") String cartId,
-                               @PathVariable("productId") String productId) {
-
     }
 }
