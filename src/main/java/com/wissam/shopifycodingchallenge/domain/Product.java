@@ -28,6 +28,10 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Long price;
 
+    public void setInventoryCount(Long inventoryCount) {
+        this.inventoryCount = inventoryCount;
+    }
+
     @Column(name = "inventory_count", nullable = false)
     private Long inventoryCount;
 

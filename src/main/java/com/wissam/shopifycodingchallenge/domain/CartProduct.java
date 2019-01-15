@@ -13,9 +13,10 @@ public class CartProduct {
         //for Hibernate
     }
 
-    public CartProduct(String productId, String cartId) {
+    public CartProduct(String productId, String cartId, Long quantity) {
         this.productId = productId;
         this.cartId = cartId;
+        this.quantity = quantity;
     }
 
     @Id
@@ -26,6 +27,8 @@ public class CartProduct {
     private String productId;
 
     private String cartId;
+
+    private Long quantity;
 
     public String getId() {
         return id;
@@ -49,5 +52,13 @@ public class CartProduct {
 
     public void setCartId(String cartId) {
         this.cartId = cartId;
+    }
+
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
     }
 }
