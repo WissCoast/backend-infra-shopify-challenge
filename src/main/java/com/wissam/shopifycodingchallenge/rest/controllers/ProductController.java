@@ -24,13 +24,13 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Product>> findAllProducts(@RequestParam(name = "available", defaultValue = "false") boolean available) {
+    public ResponseEntity<List<Product>> getAllProducts(@RequestParam(name = "available", defaultValue = "false") boolean available) {
         return new ResponseEntity<>(productService.findAllProducts(available), HttpStatus.OK);
     }
 
     @GetMapping( {"/{title}"})
-    public Product findByTitle(@PathVariable("title") String title) {
-        return productService.findProductByTitle(title);
+    public ResponseEntity getProductByTitle(@PathVariable("title") String title) {
+        return new ResponseEntity<>(productService.findProductByTitle(title), HttpStatus.OK);
     }
 
     @PostMapping("/add")
