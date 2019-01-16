@@ -66,7 +66,7 @@ public class CartService {
         return cartDto;
     }
 
-    public void addProduct(String cartId, String productId, Long quantity) {
+    public CartDto addProduct(String cartId, String productId, Long quantity) {
         Cart cart = cartRepository.findCartById(cartId);
         if (cart == null) {
             throw new CartNotFoundException(cartId);
@@ -79,6 +79,8 @@ public class CartService {
         cart.addProduct(new CartProduct(productId, cartId, quantity));
         cart.updateCartValue(product.getPrice() * quantity);
         cartRepository.save(cart);
+
+        return getCartDto(cartId);
     }
 
     @Transactional

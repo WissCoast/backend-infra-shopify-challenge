@@ -1,5 +1,6 @@
 package com.wissam.shopifycodingchallenge.controllers;
 
+import com.wissam.shopifycodingchallenge.controllers.dto.CartDto;
 import com.wissam.shopifycodingchallenge.domain.exceptions.ProductApiException;
 import com.wissam.shopifycodingchallenge.persistence.repositories.CartProductRepository;
 import com.wissam.shopifycodingchallenge.persistence.repositories.ProductRepository;
@@ -35,12 +36,13 @@ public class CartController {
     public ResponseEntity<Object> addProduct(@PathVariable("cartId") String cartId,
                                              @PathVariable("productId") String productId,
                                              @RequestParam(name = "quantity", defaultValue = "1") Long quantity) {
+        CartDto cartDto;
         try {
-            cartService.addProduct(cartId, productId, quantity);
+            cartDto = cartService.addProduct(cartId, productId, quantity);
         } catch (ProductApiException e) {
             return new ResponseEntity<>(e.generateErrorMessage(), e.getHttpStatus());
         }
-        return ResponseEntity.accepted().build();
+        return new ResponseEntity<>(cartDto, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/{cartId}/complete")
