@@ -61,6 +61,12 @@ Returns a JSON object containing the object
 }
 ```
 
+* **Error Response:**
+  If the product title doesn't exist <br />
+  **Code:** 404 NOT FOUND <br />
+  **Content example:** `{"errorMessage":"Product with title :title not found"}`
+
+
 **Add a product**
 ----
 Adds an object, than returns a JSON object containing the object with the generated id
@@ -134,10 +140,9 @@ Adds an object, than returns a JSON object containing the object with the genera
     "totalCartValue": 7000
  
 * **Error Response:**
-
-If the cart id doesn't exist
-  * **Code:** 404 NOT FOUND <br />
-    **Content example:** `{"errorMessage": "Cart with id :cartId not found"}`
+  If the cart id doesn't exist <br />
+  **Code:** 404 NOT FOUND <br />
+  **Content example:** `{"errorMessage": "Cart with id :cartId not found"}`
 
 **Add a product to a cart**
 ----
@@ -171,15 +176,14 @@ If the cart id doesn't exist
     ],
     "totalCartValue": 6000
  
-* **Error Response:**
-
-If the cart id doesn't exist
-  * **Code:** 404 NOT FOUND <br />
-    **Content example:** `{"errorMessage": "Cart with id :cartId not found"}`
-  
-If the product id doesn't exist
-* **Code:** 404 NOT FOUND <br />
-  **Content example:** `{"errorMessage": "Product with id :productId not found"}`
+* **Error Response:** <br />
+  If the cart id doesn't exist <br />
+  **Code:** 404 NOT FOUND <br />
+  **Content example:** `{"errorMessage": "Cart with id :cartId not found"}`
+ <br />
+ If the product id doesn't exist
+ **Code:** 404 NOT FOUND <br />
+ **Content example:** `{"errorMessage": "Product with id :productId not found"}`
   
 **Complete cart**
 ----
@@ -193,12 +197,12 @@ Completes the cart and reduces the inventory count
 
 * **Code:** 200 <br />
 
-* **Error Response:**
+* **Error Response:** <br />
 
-If the cart id doesn't exist
-* **Code:** 404 NOT FOUND <br />
+  If the cart id doesn't exist <br />
+  **Code:** 404 NOT FOUND <br />
   **Content example:** `{"errorMessage": "Cart with id :cartId not found"}`
-
-If the product quantity is greater than the inventory count 
-* **Code:** 400 BAD REQUEST <br />
+  <br />
+  If the product quantity is greater than the inventory count 
+  **Code:** 400 BAD REQUEST <br />
   **Content example:** `{"errorMessage":"Shopping cart quantity is higher than inventory stock for product with name Sega Genesis"}`
