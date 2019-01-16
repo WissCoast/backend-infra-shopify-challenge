@@ -1,6 +1,7 @@
 package com.wissam.shopifycodingchallenge.rest.controllers;
 
 import com.wissam.shopifycodingchallenge.domain.Product;
+import com.wissam.shopifycodingchallenge.domain.exceptions.ProductApiException;
 import com.wissam.shopifycodingchallenge.rest.dto.request.ProductDto;
 import com.wissam.shopifycodingchallenge.services.ProductService;
 import org.slf4j.Logger;
@@ -24,13 +25,19 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Product>> getAllProducts(@RequestParam(name = "available", defaultValue = "false") boolean available) {
+    public ResponseEntity getAllProducts(@RequestParam(name = "available", defaultValue = "false") boolean available) {
         return new ResponseEntity<>(productService.findAllProducts(available), HttpStatus.OK);
     }
 
     @GetMapping( {"/{title}"})
     public ResponseEntity getProductByTitle(@PathVariable("title") String title) {
-        return new ResponseEntity<>(productService.findProductByTitle(title), HttpStatus.OK);
+        Product product;
+        try {
+            product = productService.findProductByTitle(title);
+        } catch (ProductApiException e) {
+            return new ResponseEntity<>(e.generateErrorMessage(), e.getHttpStatus());
+        }
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @PostMapping("/add")

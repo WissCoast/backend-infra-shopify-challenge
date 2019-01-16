@@ -49,8 +49,16 @@ public class CartService {
         return cart.getId();
     }
 
-    public CartDto getCartDto(String cartId) {
+    private Cart findCart(String cartId) {
         Cart cart = cartRepository.findCartById(cartId);
+        if (cart == null) {
+            throw new CartNotFoundException(cartId);
+        }
+        return cart;
+    }
+
+    public CartDto getCartDto(String cartId) {
+        Cart cart = findCart(cartId);
         List<CartProduct> cartProducts = cart.getProducts();
 
         List<CartProductDto> products = new ArrayList<>();
@@ -67,13 +75,10 @@ public class CartService {
     }
 
     public CartDto addProduct(String cartId, String productId, Long quantity) {
-        Cart cart = cartRepository.findCartById(cartId);
-        if (cart == null) {
-            throw new CartNotFoundException(cartId);
-        }
+        Cart cart = findCart(cartId);
         Product product = productRepository.findProductById(productId);
         if (product == null) {
-            throw new ProductNotFoundException(productId);
+            throw new ProductNotFoundException(productId, false);
         }
 
         cart.addProduct(new CartProduct(productId, cartId, quantity));

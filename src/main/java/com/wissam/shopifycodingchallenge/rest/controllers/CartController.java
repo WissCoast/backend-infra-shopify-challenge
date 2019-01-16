@@ -21,17 +21,23 @@ public class CartController {
     }
 
     @PostMapping
-    public String createCart() {
-        return cartService.createCart();
+    public ResponseEntity<String> createCart() {
+        return new ResponseEntity<>(cartService.createCart(), HttpStatus.CREATED);
     }
 
     @GetMapping("/{cartId}")
-    public ResponseEntity<Object> getCartInfo(@PathVariable("cartId") String cartId) {
-        return new ResponseEntity<>(cartService.getCartDto(cartId), HttpStatus.OK);
+    public ResponseEntity getCartInfo(@PathVariable("cartId") String cartId) {
+        CartDto cartDto;
+        try {
+            cartDto = cartService.getCartDto(cartId);
+        } catch (ProductApiException e) {
+            return new ResponseEntity<>(e.generateErrorMessage(), e.getHttpStatus());
+        }
+        return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 
     @PostMapping("/{cartId}/product/{productId}")
-    public ResponseEntity<Object> addProduct(@PathVariable("cartId") String cartId,
+    public ResponseEntity addProduct(@PathVariable("cartId") String cartId,
                                              @PathVariable("productId") String productId,
                                              @RequestParam(name = "quantity", defaultValue = "1") Long quantity) {
         CartDto cartDto;
@@ -40,11 +46,11 @@ public class CartController {
         } catch (ProductApiException e) {
             return new ResponseEntity<>(e.generateErrorMessage(), e.getHttpStatus());
         }
-        return new ResponseEntity<>(cartDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 
     @PostMapping("/{cartId}/complete")
-    public ResponseEntity<Object> completeCart(@PathVariable("cartId") String cartId) {
+    public ResponseEntity completeCart(@PathVariable("cartId") String cartId) {
         try {
             cartService.completeCart(cartId);
         } catch (ProductApiException e) {

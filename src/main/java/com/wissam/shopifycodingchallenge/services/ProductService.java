@@ -2,6 +2,7 @@ package com.wissam.shopifycodingchallenge.services;
 
 import com.google.common.collect.Lists;
 import com.wissam.shopifycodingchallenge.domain.Product;
+import com.wissam.shopifycodingchallenge.domain.exceptions.ProductNotFoundException;
 import com.wissam.shopifycodingchallenge.persistence.repositories.ProductRepository;
 import com.wissam.shopifycodingchallenge.rest.assemblers.ProductAssembler;
 import com.wissam.shopifycodingchallenge.rest.dto.request.ProductDto;
@@ -31,7 +32,11 @@ public class ProductService {
     }
 
     public Product findProductByTitle(String title) {
-        return productRepository.findProductByTitle(title);
+        Product product = productRepository.findProductByTitle(title);
+        if (product == null) {
+            throw new ProductNotFoundException(title, true);
+        }
+        return product;
     }
 
     public Product addProduct(ProductDto productDto) {
