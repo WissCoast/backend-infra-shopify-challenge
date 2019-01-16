@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface CartRepository extends CrudRepository<Cart, String> {
 
     Cart findCartById(String id);
+
+    void deleteCartById(String id);
 }

@@ -7,7 +7,8 @@ import java.util.UUID;
 @Service
 public class CartFactory {
 
-    public CartFactory() {}
+    public CartFactory() {
+    }
 
     private String generateCartId() {
         return UUID.randomUUID().toString();

@@ -1,6 +1,5 @@
 package com.wissam.shopifycodingchallenge.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -9,6 +8,14 @@ import javax.persistence.Id;
 
 @Entity
 public class CartProduct {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String id;
+    private String productId;
+    private String cartId;
+    private Long quantity;
 
     public CartProduct() {
         //for Hibernate
@@ -19,17 +26,6 @@ public class CartProduct {
         this.cartId = cartId;
         this.quantity = quantity;
     }
-
-    @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
-
-    private String productId;
-
-    private String cartId;
-
-    private Long quantity;
 
     public String getId() {
         return id;
@@ -43,16 +39,8 @@ public class CartProduct {
         return productId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
     public String getCartId() {
         return cartId;
-    }
-
-    public void setCartId(String cartId) {
-        this.cartId = cartId;
     }
 
     public Long getQuantity() {

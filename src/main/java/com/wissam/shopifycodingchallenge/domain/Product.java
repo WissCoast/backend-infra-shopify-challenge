@@ -1,5 +1,7 @@
 package com.wissam.shopifycodingchallenge.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,18 @@ import javax.persistence.Id;
 @Entity
 public class Product {
 
-    public Product(){
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String id;
+    @Column(nullable = false, unique = true)
+    private String title;
+    @Column(nullable = false)
+    private Long price;
+    @Column(nullable = false)
+    private Long inventoryCount;
+
+    public Product() {
         //default constructor to please hibernate
     }
 
@@ -17,23 +30,6 @@ public class Product {
         this.price = price;
         this.inventoryCount = inventoryCount;
     }
-
-    @Id
-    @GeneratedValue
-    private String id;
-
-    @Column(name = "title", nullable = false, unique = true)
-    private String title;
-
-    @Column(name = "price", nullable = false)
-    private Long price;
-
-    public void setInventoryCount(Long inventoryCount) {
-        this.inventoryCount = inventoryCount;
-    }
-
-    @Column(name = "inventory_count", nullable = false)
-    private Long inventoryCount;
 
     public String getId() {
         return id;
@@ -49,5 +45,9 @@ public class Product {
 
     public Long getInventoryCount() {
         return inventoryCount;
+    }
+
+    public void setInventoryCount(Long inventoryCount) {
+        this.inventoryCount = inventoryCount;
     }
 }

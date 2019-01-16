@@ -1,4 +1,4 @@
-package com.wissam.shopifycodingchallenge.controllers.dto;
+package com.wissam.shopifycodingchallenge.rest.dto.response;
 
 import java.util.List;
 

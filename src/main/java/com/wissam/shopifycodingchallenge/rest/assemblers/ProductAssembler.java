@@ -1,7 +1,8 @@
-package com.wissam.shopifycodingchallenge.controllers.assemblers;
+package com.wissam.shopifycodingchallenge.rest.assemblers;
 
-import com.wissam.shopifycodingchallenge.controllers.dto.CartProductDto;
 import com.wissam.shopifycodingchallenge.domain.Product;
+import com.wissam.shopifycodingchallenge.rest.dto.request.ProductDto;
+import com.wissam.shopifycodingchallenge.rest.dto.response.CartProductDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,5 +17,9 @@ public class ProductAssembler {
         cartProductDto.quantity = quantity;
 
         return cartProductDto;
+    }
+
+    public Product fromDto(ProductDto productDto) {
+        return new Product(productDto.title, productDto.price, productDto.inventoryCount);
     }
 }

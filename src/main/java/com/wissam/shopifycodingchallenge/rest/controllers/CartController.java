@@ -1,10 +1,8 @@
-package com.wissam.shopifycodingchallenge.controllers;
+package com.wissam.shopifycodingchallenge.rest.controllers;
 
-import com.wissam.shopifycodingchallenge.controllers.dto.CartDto;
 import com.wissam.shopifycodingchallenge.domain.exceptions.ProductApiException;
-import com.wissam.shopifycodingchallenge.persistence.repositories.CartProductRepository;
-import com.wissam.shopifycodingchallenge.persistence.repositories.ProductRepository;
-import com.wissam.shopifycodingchallenge.domain.services.CartService;
+import com.wissam.shopifycodingchallenge.rest.dto.response.CartDto;
+import com.wissam.shopifycodingchallenge.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +27,7 @@ public class CartController {
 
     @GetMapping("/{cartId}")
     public ResponseEntity<Object> getCartInfo(@PathVariable("cartId") String cartId) {
-        return new ResponseEntity<>(cartService.getCartDto(cartId), HttpStatus.FOUND);
+        return new ResponseEntity<>(cartService.getCartDto(cartId), HttpStatus.OK);
     }
 
     @PostMapping("/{cartId}/product/{productId}")
@@ -42,7 +40,7 @@ public class CartController {
         } catch (ProductApiException e) {
             return new ResponseEntity<>(e.generateErrorMessage(), e.getHttpStatus());
         }
-        return new ResponseEntity<>(cartDto, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(cartDto, HttpStatus.CREATED);
     }
 
     @PostMapping("/{cartId}/complete")
@@ -52,6 +50,6 @@ public class CartController {
         } catch (ProductApiException e) {
             return new ResponseEntity<>(e.generateErrorMessage(), e.getHttpStatus());
         }
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.ok().build();
     }
 }

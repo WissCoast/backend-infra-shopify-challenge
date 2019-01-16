@@ -1,8 +1,5 @@
-package com.wissam.shopifycodingchallenge.domain.services;
+package com.wissam.shopifycodingchallenge.services;
 
-import com.wissam.shopifycodingchallenge.controllers.assemblers.ProductAssembler;
-import com.wissam.shopifycodingchallenge.controllers.dto.CartDto;
-import com.wissam.shopifycodingchallenge.controllers.dto.CartProductDto;
 import com.wissam.shopifycodingchallenge.domain.Cart;
 import com.wissam.shopifycodingchallenge.domain.CartFactory;
 import com.wissam.shopifycodingchallenge.domain.CartProduct;
@@ -13,6 +10,9 @@ import com.wissam.shopifycodingchallenge.domain.exceptions.ProductOutOfStockExce
 import com.wissam.shopifycodingchallenge.persistence.repositories.CartProductRepository;
 import com.wissam.shopifycodingchallenge.persistence.repositories.CartRepository;
 import com.wissam.shopifycodingchallenge.persistence.repositories.ProductRepository;
+import com.wissam.shopifycodingchallenge.rest.assemblers.ProductAssembler;
+import com.wissam.shopifycodingchallenge.rest.dto.response.CartDto;
+import com.wissam.shopifycodingchallenge.rest.dto.response.CartProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,7 +87,7 @@ public class CartService {
     public void completeCart(String cartId) {
         List<CartProduct> products = cartProductRepository.findCartProductsByCartId(cartId);
 
-        for(CartProduct product : products) {
+        for (CartProduct product : products) {
             String id = product.getProductId();
             Product foundProduct = productRepository.findProductById(id);
             Long updatedInventory = foundProduct.getInventoryCount() - product.getQuantity();
@@ -99,7 +99,7 @@ public class CartService {
 
             //empty cart and delete cart
             cartProductRepository.deleteCartProductsByCartId(cartId);
-            cartRepository.deleteById(cartId);
+            cartRepository.deleteCartById(cartId);
         }
     }
 

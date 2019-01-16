@@ -1,7 +1,5 @@
 package com.wissam.shopifycodingchallenge.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,18 +7,16 @@ import java.util.List;
 @Entity
 public class Cart {
 
-    public Cart() {
-        //for Hibernate
-    }
-
     @Id
     private String id;
-
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn
     private List<CartProduct> products;
-
     private Long totalCartValue;
+
+    public Cart() {
+        //for Hibernate
+    }
 
     public Cart(String id) {
         this.id = id;
