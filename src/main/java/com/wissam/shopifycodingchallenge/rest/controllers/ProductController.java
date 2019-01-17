@@ -3,15 +3,11 @@ package com.wissam.shopifycodingchallenge.rest.controllers;
 import com.wissam.shopifycodingchallenge.domain.Product;
 import com.wissam.shopifycodingchallenge.domain.exceptions.ProductApiException;
 import com.wissam.shopifycodingchallenge.rest.dto.request.ProductDto;
-import com.wissam.shopifycodingchallenge.services.ProductService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.wissam.shopifycodingchallenge.domain.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController

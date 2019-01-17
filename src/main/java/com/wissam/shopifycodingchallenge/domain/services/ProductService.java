@@ -1,4 +1,4 @@
-package com.wissam.shopifycodingchallenge.services;
+package com.wissam.shopifycodingchallenge.domain.services;
 
 import com.google.common.collect.Lists;
 import com.wissam.shopifycodingchallenge.domain.Product;

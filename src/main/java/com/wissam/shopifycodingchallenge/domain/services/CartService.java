@@ -1,4 +1,4 @@
-package com.wissam.shopifycodingchallenge.services;
+package com.wissam.shopifycodingchallenge.domain.services;
 
 import com.wissam.shopifycodingchallenge.domain.Cart;
 import com.wissam.shopifycodingchallenge.domain.CartFactory;

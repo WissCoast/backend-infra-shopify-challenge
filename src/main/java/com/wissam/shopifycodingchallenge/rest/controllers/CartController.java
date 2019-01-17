@@ -2,7 +2,7 @@ package com.wissam.shopifycodingchallenge.rest.controllers;
 
 import com.wissam.shopifycodingchallenge.domain.exceptions.ProductApiException;
 import com.wissam.shopifycodingchallenge.rest.dto.response.CartDto;
-import com.wissam.shopifycodingchallenge.services.CartService;
+import com.wissam.shopifycodingchallenge.domain.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
