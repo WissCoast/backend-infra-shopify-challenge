@@ -13,7 +13,7 @@
 2. run this command in the terminal to build the project `mvn clean install`
 3. run this command in the terminal to run the project `mvn spring-boot:run`
 
-##### If you prefer, the project is delpoyed at this URL: https://wissam-shopify-challenge.herokuapp.com <br>
+##### If you prefer, the project is deployed at this URL: https://wissam-shopify-challenge.herokuapp.com <br>
 ### Notes
 
 The project is coded in Java, using the framework Spring Boot for fast development.
