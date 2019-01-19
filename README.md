@@ -6,12 +6,14 @@
 - Java 1.8.*
 - Maven 3.5.*
 
+
 ### Instructions to run the code locally
 
 1. Clone this repo and go to the root directory where the file `pom.xml` is located
 2. run this command in the terminal to build the project `mvn clean install`
 3. run this command in the terminal to run the project `mvn spring-boot:run`
 
+##### If you prefer, the project is delpoyed at this URL: https://wissam-shopify-challenge.herokuapp.com <br>
 ### Notes
 
 The project is coded in Java, using the framework Spring Boot for fast development.
