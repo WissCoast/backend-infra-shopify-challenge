@@ -1,4 +1,4 @@
-# backend-shopify-challenge
+# backend/infra-shopify-challenge
 
 ### Documentation for the api is available [here](api_documentation.md)
 
